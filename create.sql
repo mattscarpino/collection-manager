@@ -24,7 +24,7 @@ manufacturer VarChar(50)
 CREATE TABLE Game_Console (
 consoleid Int References Console(consoleid),
 gameid Int References Video_Games(gameid),
-CONSTRAINT game_conrole_pk PRIMARY KEY (consoleid, videogameid)
+CONSTRAINT game_conrole_pk PRIMARY KEY (consoleid, gameid)
 );
 
 INSERT INTO genre (
@@ -34,12 +34,15 @@ VALUES ('Horror');
 
 INSERT INTO video_games (
 video_game_name,
-description
+description,
+genreid
 )
-VALUES ('CallofDuty', 'First Person Shooter');
+VALUES ('CallofDuty', 'First Person Shooter', 1);
 
 INSERT INTO console (
 console_name, 
 manufacturer
 )
 VALUES ('PS5', 'Sony');
+
+INSERT INTO game_console (consoleid, gameid) VALUES (1, 1);

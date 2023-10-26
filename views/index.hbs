@@ -1,2 +1,31 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Genre
+        </th>
+        <th>
+            Console
+        </th>
+    </tr>
+
+    {{#each collectibles}}
+    <tr>
+        <td>
+            {{video_game_name}}
+        </td>
+        <td>
+            {{genrename}}
+        </td>
+        <td>
+            {{console_name}}
+        </td>
+    </tr>
+    {{/each}}
+
+</table>
