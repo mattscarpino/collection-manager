@@ -49,7 +49,18 @@ router.get('/', async (req, res) => {
   res.render('index', { title: 'Express', collectibles: result.rows });
 });
 
-// router.get('/gamepage/:video_game_name', async (req, res) => { });
+router.get('/gamepage/:video_game_name', async (req, res) => {
+  const name = req.params.video_game_name;
+  name.replace('/%20', ' ');
+  const query =
+    "SELECT video_game_name, genrename, developer_name, console_name, manufacturer FROM video_games, genres, developers, consoles WHERE video_games.genreid = genres.genreid AND video_games.developerid = developers.developerid AND video_games.consoleid = consoles.consoleid AND video_games.video_game_name = '" +
+    name +
+    "';";
+
+  const result = await db.query(query);
+
+  res.render('gamepage', { query: result.rows });
+});
 
 router.get('/add-new', async (req, res) => {
   res.render('add-new');

@@ -1,1 +1,44 @@
-<h1>test</h1>
+<table>
+    <tr>
+        <th>
+            Name <br>
+
+        </th>
+        <th>
+            Genre <br>
+
+        </th>
+        <th>
+            Console <br>
+
+        </th>
+        <th>
+            Developer <br>
+
+        </th>
+        <th>
+            Manufacturer <br>
+        </th>
+    </tr>
+
+    {{#each query}}
+    <tr>
+        <td>
+            {{video_game_name}}
+        </td>
+        <td>
+            {{genrename}}
+        </td>
+        <td>
+            {{console_name}}
+        </td>
+        <td>
+            {{developer_name}}
+        </td>
+        <td>
+            {{manufacturer}}
+        </td>
+    </tr>
+    {{/each}}
+
+</table>
