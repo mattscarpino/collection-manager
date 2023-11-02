@@ -51,9 +51,9 @@ router.get('/', async (req, res) => {
 
 // router.get('/gamepage/:video_game_name', async (req, res) => { });
 
-// router.get('/add-new', async (req, res) => {
-//   res.render('add-new');
-// });
+router.get('/add-new', async (req, res) => {
+  res.render('add-new');
+});
 
 router.post('/', async (req, res) => {
   const query =
