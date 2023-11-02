@@ -59,7 +59,27 @@ router.get('/gamepage/:video_game_name', async (req, res) => {
 
   const result = await db.query(query);
 
-  res.render('gamepage', { query: result.rows });
+  res.render('gamepage', { query: result.rows, video_game_name: name });
+});
+
+router.get('/update/:video_game_name', async (req, res) => {
+  const name = req.params.video_game_name;
+  name.replace('/%20', ' ');
+
+  const query =
+    "SELECT video_game_name, genrename, developer_name, console_name, manufacturer, gameid FROM video_games, genres, developers, consoles WHERE video_games.genreid = genres.genreid AND video_games.developerid = developers.developerid AND video_games.consoleid = consoles.consoleid AND video_games.video_game_name = '" +
+    name +
+    "';";
+
+  const result = await db.query(query);
+
+  res.render('update', {
+    result: result.rows,
+    video_game_name: name,
+    genrename: result[0],
+    developer_name: result[0],
+    console_name: result[3],
+  });
 });
 
 router.get('/add-new', async (req, res) => {
@@ -97,6 +117,26 @@ router.post('/', async (req, res) => {
   res.render('index', { title: 'Express', collectibles: reload.rows });
 });
 
+router.get('/update/:game', async (req, res) => {
+  res.json(req.query);
+});
 // Listing collectibles
+
+router.post('/done', async (req, res) => {
+  const update =
+    "UPDATE video_games SET video_game_name = '" +
+    req.body.game_name +
+    "', genreid = (SELECT genreid FROM genres WHERE genrename = '" +
+    req.body.genre +
+    "'), consoleid = (SELECT consoleid FROM consoles WHERE console_name = '" +
+    req.body.console +
+    "'), developerid = (SELECT developerid FROM developers WHERE developer_name = '" +
+    req.body.developer +
+    "')";
+
+  await db.query(update);
+
+  res.render('index');
+});
 
 module.exports = router;
